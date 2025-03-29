@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=3 uid="uid://df0011pqvqx1x"]
+
+[ext_resource type="Script" uid="uid://bnhhetxqjumgw" path="res://turret/turret.gd" id="1_vfthy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pweg5"]
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vfthy"]
+height = 0.5
+is_hemisphere = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_2876l"]
+size = Vector3(0.1, 0.1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1p48p"]
+albedo_color = Color(0.665454, 0.000801666, 0.749079, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uqrhp"]
+material = SubResource("StandardMaterial3D_1p48p")
+size = Vector3(0.05, 0.05, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gi6x"]
+transparency = 1
+albedo_color = Color(0.86, 0.86, 0.86, 0.729412)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rykjw"]
+material = SubResource("StandardMaterial3D_7gi6x")
+size = Vector2(50, 50)
+orientation = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0x0jn"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.101961)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2o8hy"]
+material = SubResource("StandardMaterial3D_0x0jn")
+size = Vector2(50, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v66sf"]
+albedo_color = Color(0, 0.0323333, 0.97, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4rfjx"]
+
+[node name="Turret" type="Node3D"]
+script = ExtResource("1_vfthy")
+elevation_speed_deg = null
+rotation_speed_deg = null
+min_elevation_deg = null
+max_elevation_deg = null
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_pweg5")
+
+[node name="Cap" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.100626, 0)
+mesh = SubResource("SphereMesh_vfthy")
+
+[node name="Head" type="Node3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="Gun1" type="MeshInstance3D" parent="Body/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, -0.4)
+mesh = SubResource("BoxMesh_2876l")
+
+[node name="Gun2" type="MeshInstance3D" parent="Body/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, -0.4)
+mesh = SubResource("BoxMesh_2876l")
+
+[node name="LookIndicator" type="MeshInstance3D" parent="Body/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
+mesh = SubResource("BoxMesh_uqrhp")
+
+[node name="ElevationPlane" type="MeshInstance3D" parent="Body/Head"]
+mesh = SubResource("PlaneMesh_rykjw")
+
+[node name="ElevationPlane2" type="MeshInstance3D" parent="Body/Head"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_rykjw")
+
+[node name="RotationPlane" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_2o8hy")
+
+[node name="rotation_projection" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rotation_projection"]
+material_override = SubResource("StandardMaterial3D_v66sf")
+mesh = SubResource("SphereMesh_4rfjx")
+
+[node name="elevation_projection" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="elevation_projection"]
+material_override = SubResource("StandardMaterial3D_v66sf")
+mesh = SubResource("SphereMesh_4rfjx")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dseoaeb0h2tty"]
+
+[ext_resource type="Script" uid="uid://bj5jlirmnvw0u" path="res://turret/test.gd" id="1_52222"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7hka8"]
+
+[node name="Test" type="Node3D"]
+script = ExtResource("1_52222")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_7hka8")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.967117, 0.254332, 0, -0.254332, 0.967117, 0.00364017, 1.10915, 1.41032)

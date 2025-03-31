@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c75361yec1x2d"]
+
+[ext_resource type="Script" uid="uid://cf24kq6t1ifq3" path="res://move_camera.gd" id="1_5i5rq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_058e0"]
+
+[node name="MoveCamera" type="CharacterBody3D"]
+script = ExtResource("1_5i5rq")
+
+[node name="CameraPos" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPos"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_058e0")

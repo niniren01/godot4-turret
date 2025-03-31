@@ -43,10 +43,6 @@ albedo_color = Color(0, 0.0323333, 0.97, 1)
 
 [node name="Turret" type="Node3D"]
 script = ExtResource("1_vfthy")
-elevation_speed_deg = null
-rotation_speed_deg = null
-min_elevation_deg = null
-max_elevation_deg = null
 
 [node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_pweg5")

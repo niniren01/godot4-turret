@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7nqibcigdhx6"]
+[gd_scene load_steps=10 format=3 uid="uid://b7nqibcigdhx6"]
 
-[ext_resource type="PackedScene" uid="uid://dseoaeb0h2tty" path="res://turret/test.tscn" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://df0011pqvqx1x" path="res://turret/turret.tscn" id="1_fj7yv"]
+[ext_resource type="Script" uid="uid://bxms1gkm3llxa" path="res://target.gd" id="2_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://c75361yec1x2d" path="res://move_camera.tscn" id="3_tlwt5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -15,6 +17,14 @@ sky = SubResource("Sky_f3sb7")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqk2v"]
+albedo_color = Color(1, 0.16, 0.16, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_036b0"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dwbse"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
 [node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -24,4 +34,19 @@ environment = SubResource("Environment_fj7yv")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Test" parent="." instance=ExtResource("1_f3sb7")]
+[node name="Turret" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+target = NodePath("../Target")
+
+[node name="Target" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.4659)
+script = ExtResource("2_tlwt5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Target"]
+material_override = SubResource("StandardMaterial3D_aqk2v")
+mesh = SubResource("BoxMesh_036b0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Target"]
+shape = SubResource("ConvexPolygonShape3D_dwbse")
+
+[node name="MoveCamera" parent="." instance=ExtResource("3_tlwt5")]
